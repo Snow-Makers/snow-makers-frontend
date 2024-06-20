@@ -67,9 +67,6 @@ class _PageContentState extends ConsumerState<_PageContent> {
           actions: [
             IconButton(
               onPressed: () async {
-                final isReservationExists = await ref
-                    .read(IReservationService.provider)
-                    .checkReservationExists(widget.unit.modelId);
                 showModalBottomSheet(
                   backgroundColor: context.appTheme.button,
                   context: context,
@@ -77,7 +74,6 @@ class _PageContentState extends ConsumerState<_PageContent> {
                     width: context.width,
                     child: _Options(
                       unit: widget.unit,
-                      isReservationExists: isReservationExists,
                     ),
                   ),
                 );
@@ -92,6 +88,8 @@ class _PageContentState extends ConsumerState<_PageContent> {
             children: [
               30.verticalSpace,
               _UnitInformation(widget.unit),
+              30.verticalSpace,
+              _TimerUnit(seconds: widget.unit.timer,),
               30.verticalSpace,
               _UnitFunctions(unit: widget.unit),
               30.verticalSpace,

@@ -17,7 +17,7 @@ class _CalendarUnit extends ConsumerWidget {
           child: CircularProgressIndicator(),
         ),
         data: (reservation) {
-          if (reservation != null) {
+          if (reservation.isNotEmpty) {
             return Card(
               child: Column(
                 children: [
@@ -45,30 +45,42 @@ class _CalendarUnit extends ConsumerWidget {
 }
 
 class _Calendar extends ConsumerWidget {
-  final Reservation reservation;
+  final List<Reservation> reservations;
 
   const _Calendar(
-    this.reservation,
+    this.reservations,
   );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final DateTime startDate = DateTime.parse(reservation.dates.first);
-    final DateTime endDate = reservation.dates.length == 1
-        ? startDate
-        : DateTime.parse(reservation.dates.last);
+    final initialSelectedRanges = reservations.expand((reservation) {
+      return reservation.dates.map((date) {
+        final startDate = DateTime.parse(date.split(' - ')[0]);
+        final endDate = DateTime.parse(date.split(' - ')[1]);
+        return PickerDateRange(startDate, endDate);
+      });
+    }).toList();
+
     return IgnorePointer(
       child: SfDateRangePicker(
         view: DateRangePickerView.month,
-        selectionMode: DateRangePickerSelectionMode.range,
+        selectionMode: DateRangePickerSelectionMode.multiRange,
         headerStyle: const DateRangePickerHeaderStyle(
           backgroundColor: Colors.transparent,
         ),
-        backgroundColor: Colors.transparent,
-        initialSelectedRange: PickerDateRange(
-          startDate,
-          endDate,
+        // show the nearest date
+        initialDisplayDate: DateTime.parse(
+          initialSelectedRanges
+              .map((e) => e.endDate)
+              .reduce((min, max) => min)
+              .toString(),
         ),
+        
+        backgroundColor: Colors.transparent,
+        initialSelectedRanges: initialSelectedRanges,
+        showTodayButton: false,
+        showActionButtons: false,
+        showNavigationArrow: false,
       ),
     );
   }

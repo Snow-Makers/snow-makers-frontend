@@ -10,12 +10,19 @@ class _EditReservationForm extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final reservationController = ref.read(ReservationHolder.provider.notifier);
+    final reservations =
+        ref.watch(ReservationNotifier.provider(reservation.unitId)).getData();
     return WidgetLifecycleListener(
       onInit: () {
         reservationController.name.text = reservation.name;
         reservationController.email.text = reservation.email;
         reservationController.phone.text = reservation.phone ?? '';
         reservationController.dates = reservation.dates;
+        reservationController.selectedDates =
+            reservations?.expand((reservation) {
+                  return reservation.dates;
+                }).toList() ??
+                [];
       },
       child: Form(
         key: reservationController.editFormKey,
@@ -29,7 +36,6 @@ class _EditReservationForm extends ConsumerWidget {
                 label: LocaleKeys.addReservation_name.tr(),
                 hint: 'Snow Makers',
                 inputType: TextInputType.name,
-
                 validator: (value) => value!.validate([
                   validateRequired,
                   validateName,
@@ -93,6 +99,7 @@ class _DateFieldState extends ConsumerState<_DateField> {
         reservationController.addDateRange(
           DateFormat('yyyy-MM-dd').format(dateRange.start),
           DateFormat('yyyy-MM-dd').format(dateRange.end),
+          context,
         );
       }
     }

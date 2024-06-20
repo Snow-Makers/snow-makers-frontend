@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:snowmakers/core/notifiers/global_state.dart';
@@ -45,7 +46,12 @@ class UnitsProvider extends StateNotifier<GlobalStates<bool>> {
         final isUnitExist = await _service.checkUnitExists(unit.modelId);
         final isInvalidCredentials =
             await _service.checkUnitCredentials(unit.modelId, unit.password);
-        if (isUnitExist) {
+        final units = await FirebaseFirestore.instance.collection('units').doc(unit.modelId).get();
+        final isNotExist = !units.exists;
+        if (isNotExist) {
+          state = GlobalStates.fail('Unit does not exist');
+        }
+        else if (isUnitExist) {
           state = GlobalStates.fail('Unit already exists');
           return;
         } else if (!isInvalidCredentials) {

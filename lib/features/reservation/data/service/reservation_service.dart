@@ -37,17 +37,14 @@ class ReservationService extends IReservationService {
   }
 
   @override
-  Future<Reservation?> getReservation(String unitId) async {
+  Future<List<Reservation>> getReservationsPerUnit(String unitId) async {
     final doc = await _fireStore
         .collection('reservations')
         .where('ownerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .where('unitId', isEqualTo: unitId)
         .get();
-    if (doc.docs.isNotEmpty) {
-      return Reservation.fromJson(doc.docs.first.data());
-    } else{
-      return null;
-    }
+
+    return doc.docs.map((e) => Reservation.fromJson(e.data())).toList();
   }
 
   @override

@@ -7,7 +7,7 @@ import 'package:snowmakers/features/reservation/models/reservation.dart';
 
 class ReservationsNotifier extends StateNotifier<GlobalStates<List<Reservation>>> {
   static final provider =
-      StateNotifierProvider<ReservationsNotifier, GlobalStates<List<Reservation>>>(
+      StateNotifierProvider.autoDispose<ReservationsNotifier, GlobalStates<List<Reservation>>>(
     (ref) => ReservationsNotifier(
       ref.watch(IReservationService.provider),
     ),

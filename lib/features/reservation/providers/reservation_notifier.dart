@@ -4,9 +4,9 @@ import 'package:snowmakers/core/notifiers/global_state.dart';
 import 'package:snowmakers/features/reservation/data/interface/i_reservation_service.dart';
 import 'package:snowmakers/features/reservation/models/reservation.dart';
 
-class ReservationNotifier extends StateNotifier<GlobalStates<Reservation?>> {
+class ReservationNotifier extends StateNotifier<GlobalStates<List<Reservation>>> {
   static final provider = StateNotifierProvider.family<ReservationNotifier,
-      GlobalStates<Reservation?>, String>(
+      GlobalStates<List<Reservation>>, String>(
     (ref, unitId) => ReservationNotifier(
       ref.watch(IReservationService.provider),
       unitId,
@@ -26,7 +26,7 @@ class ReservationNotifier extends StateNotifier<GlobalStates<Reservation?>> {
   Future<void> getReservationForUnit() async {
     try {
       state = GlobalStates.loading();
-      final result = await _service.getReservation(unitId);
+      final result = await _service.getReservationsPerUnit(unitId);
       state = GlobalStates.success(result);
     } on FirebaseException catch (e) {
       state = GlobalStates.fail(e.message.toString());

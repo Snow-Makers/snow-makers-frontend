@@ -9,6 +9,7 @@ class Unit {
   final String userId;
   final num? temperature;
   final int unitFunction;
+  final int timer;
   final num? humidity;
   final bool? isActive;
 
@@ -21,6 +22,7 @@ class Unit {
     this.isActive,
     this.temperature,
     this.unitFunction = -1,
+    this.timer = 0,
     this.humidity,
   });
 
@@ -34,6 +36,7 @@ class Unit {
     int? unitFunction,
     num? humidity,
     bool? isActive,
+    int? timer,
   }) {
     return Unit(
       modelId: modelId ?? this.modelId,
@@ -45,6 +48,7 @@ class Unit {
       unitFunction: unitFunction ?? this.unitFunction,
       humidity: humidity ?? this.humidity,
       isActive: isActive ?? this.isActive,
+      timer: timer ?? this.timer,
     );
   }
 
@@ -56,6 +60,7 @@ class Unit {
       unitFunction: json['unitFunction'] ?? -1,
       temperature: json['temperature'],
       humidity: json['humidity'],
+      timer: json['timer'] ?? 0,
       isActive: json['isActive'] ?? false,
       location: Location.fromJson(json['location']),
       reservation: json['reservation'] != null
@@ -72,6 +77,7 @@ class Unit {
     data['unitFunction'] = unitFunction;
     data['temperature'] = temperature;
     data['humidity'] = humidity;
+    data['timer'] = timer;
     if(isActive != null){
       data['isActive'] = isActive;
     }
@@ -84,6 +90,6 @@ class Unit {
 
   @override
   String toString() {
-    return 'Unit{modelId: $modelId, password: $password, location: $location, reservation: $reservation, userId: $userId , temperature: $temperature, unitFunction: $unitFunction, humidity: $humidity, isActive: $isActive}';
+    return 'Unit{modelId: $modelId, password: $password, location: $location, reservation: $reservation, userId: $userId , temperature: $temperature, unitFunction: $unitFunction, humidity: $humidity, isActive: $isActive, timer: $timer}';
   }
 }

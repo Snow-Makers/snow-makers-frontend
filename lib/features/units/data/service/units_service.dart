@@ -61,7 +61,7 @@ class UnitsService extends IUnitsService {
   @override
   Future<bool> checkUnitExists(String id) async {
     final doc = await _fireStore.collection('units').doc(id).get();
-    if (doc.exists && doc.data()!['userId'] != null) {
+    if (doc.exists && doc.data()?['userId'] != null) {
       return true;
     } else {
       return false;
@@ -83,20 +83,11 @@ class UnitsService extends IUnitsService {
   @override
   Future<bool> checkUnitCredentials(String id, String password) async {
     final doc = await _fireStore.collection('units').doc(id).get();
-    if (doc.data()!['password'] == password) {
+    if (doc.data()?['password'] == password) {
       return true;
     } else {
       return false;
     }
   }
 
-  @override
-  Future<bool> isRegisteredByUser(String id) async {
-    final doc = await _fireStore.collection('units').doc(id).get();
-    if (doc.data()!['userId'] != null) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }

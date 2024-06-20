@@ -12,7 +12,7 @@ abstract class IReservationService {
     ),
   );
 
-  Future<Reservation?> getReservation(String unitId);
+  Future<List<Reservation>> getReservationsPerUnit(String unitId);
 
   Future<List<Reservation>> getMyReservations();
 

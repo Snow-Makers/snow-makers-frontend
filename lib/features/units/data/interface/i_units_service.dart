@@ -25,6 +25,4 @@ abstract class IUnitsService {
   Future<bool> haveUnits();
 
   Future<bool> checkUnitCredentials(String id, String password);
-
-  Future<bool> isRegisteredByUser(String id);
 }

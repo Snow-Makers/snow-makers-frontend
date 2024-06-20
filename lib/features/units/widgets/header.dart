@@ -58,11 +58,9 @@ class _Header extends StatelessWidget {
 
 class _Options extends ConsumerWidget {
   final Unit unit;
-  final bool isReservationExists;
 
   const _Options({
     required this.unit,
-    required this.isReservationExists,
   });
 
   @override
@@ -72,7 +70,6 @@ class _Options extends ConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (!isReservationExists)
             TextButton(
               onPressed: () {
                 context.pop();
@@ -80,7 +77,6 @@ class _Options extends ConsumerWidget {
               },
               child: const Text('Add Reservation'),
             ),
-          if (!isReservationExists)
             Divider(
               color: context.appTheme.white.withOpacity(0.2),
             ),

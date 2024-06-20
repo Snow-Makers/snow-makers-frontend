@@ -10,7 +10,6 @@ import 'package:snowmakers/core/utilities/enums.dart';
 import 'package:snowmakers/core/utilities/extensions.dart';
 import 'package:snowmakers/core/utilities/logic_helpers.dart';
 import 'package:snowmakers/core/utilities/ui_alerts.dart';
-import 'package:snowmakers/features/reservation/data/interface/i_reservation_service.dart';
 import 'package:snowmakers/features/reservation/models/reservation.dart';
 import 'package:snowmakers/features/reservation/providers/reservation_notifier.dart';
 import 'package:snowmakers/features/units/data/interface/i_units_service.dart';
@@ -21,6 +20,7 @@ import 'package:snowmakers/features/units/providers/update_unit_provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 part '../widgets/units_body.dart';
+part '../widgets/timer_unit.dart';
 part '../widgets/page_content.dart';
 part '../widgets/header.dart';
 part '../widgets/unit_functions.dart';

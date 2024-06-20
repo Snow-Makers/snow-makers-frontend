@@ -38,7 +38,9 @@ class AddReservationScreen extends ConsumerWidget {
         } else if (next.isSuccess) {
           context.loaderOverlay.hide();
           CustomSnackBar.showSuccess(context, "Reservation added successfully");
-          ref.read(ReservationNotifier.provider(unitId).notifier).getReservationForUnit();
+          ref
+              .read(ReservationNotifier.provider(unitId).notifier)
+              .getReservationForUnit();
           ref.read(ReservationsNotifier.provider.notifier).getReservations();
           context.go('/');
         } else if (next.isFailed) {
@@ -69,7 +71,8 @@ class AddReservationScreen extends ConsumerWidget {
               FadeInUp(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
                     child: SizedBox(
                       width: context.width,
                       child: Card(
@@ -83,7 +86,9 @@ class AddReservationScreen extends ConsumerWidget {
                           top: false,
                           child: Column(
                             children: [
-                              const _AddReservationForm(),
+                              _AddReservationForm(
+                                unitId: unitId,
+                              ),
                               _AddReservationAction(unitId),
                             ],
                           ),

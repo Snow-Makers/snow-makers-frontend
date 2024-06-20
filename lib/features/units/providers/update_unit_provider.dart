@@ -31,6 +31,7 @@ class UpdateUnitProvider extends StateNotifier<GlobalStates<bool>> {
       temperature: unit.temperature,
       humidity: unit.humidity,
       isActive: _unitsHolder.isActive,
+      timer: unit.timer,
     );
 
     try {
@@ -40,8 +41,5 @@ class UpdateUnitProvider extends StateNotifier<GlobalStates<bool>> {
     } on FirebaseException catch (e) {
       state = GlobalStates.fail(e.message.toString());
     }
-
   }
-
-
 }
