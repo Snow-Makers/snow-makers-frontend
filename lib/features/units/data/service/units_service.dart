@@ -12,13 +12,8 @@ class UnitsService extends IUnitsService {
 
   @override
   Future<bool> addUnit(Unit unit) async {
-    final result = await _checkIdExists(unit);
-    if (!result) {
-      return false;
-    } else {
-      await _fireStore.collection('units').doc(unit.modelId).set(unit.toJson());
-      return true;
-    }
+    await _fireStore.collection('units').doc(unit.modelId).set(unit.toJson());
+    return true;
   }
 
   @override
@@ -66,7 +61,11 @@ class UnitsService extends IUnitsService {
   @override
   Future<bool> checkUnitExists(String id) async {
     final doc = await _fireStore.collection('units').doc(id).get();
-    return doc.exists;
+    if (doc.exists && doc.data()!['userId'] != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -81,27 +80,23 @@ class UnitsService extends IUnitsService {
     return querySnapshot.docs.isNotEmpty;
   }
 
-  Future<bool> _checkIdExists(Unit unit) async {
-    final querySnapshot = await _fireStore
-        .collection('units')
-        .where(
-          'userId',
-          isEqualTo: FirebaseAuth.instance.currentUser!.uid,
-        )
-        .get();
-
-    final units = querySnapshot.docs
-        .map(
-          (doc) => Unit.fromJson(
-            doc.data(),
-          ),
-        )
-        .toList();
-    final isNameExist = units.any((element) => element.modelId == unit.modelId);
-    if (isNameExist) {
-      return false;
-    } else {
+  @override
+  Future<bool> checkUnitCredentials(String id, String password) async {
+    final doc = await _fireStore.collection('units').doc(id).get();
+    if (doc.data()!['password'] == password) {
       return true;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> isRegisteredByUser(String id) async {
+    final doc = await _fireStore.collection('units').doc(id).get();
+    if (doc.data()!['userId'] != null) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

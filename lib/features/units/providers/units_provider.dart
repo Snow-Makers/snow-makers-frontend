@@ -41,11 +41,20 @@ class UnitsProvider extends StateNotifier<GlobalStates<bool>> {
         );
 
         state = GlobalStates.loading();
-        final result = await _service.addUnit(unit);
-        if (result) {
-          state = GlobalStates.success(true);
+
+        final isUnitExist = await _service.checkUnitExists(unit.modelId);
+        final isInvalidCredentials =
+            await _service.checkUnitCredentials(unit.modelId, unit.password);
+        if (isUnitExist) {
+          state = GlobalStates.fail('Unit already exists');
+          return;
+        } else if (!isInvalidCredentials) {
+          state = GlobalStates.fail(
+              'Invalid credentials, please check model id and password');
+          return;
         } else {
-          state = GlobalStates.fail('modelId already exists');
+          await _service.addUnit(unit);
+          state = GlobalStates.success(true);
         }
       } on FirebaseException catch (e) {
         state = GlobalStates.fail(e.message.toString());
