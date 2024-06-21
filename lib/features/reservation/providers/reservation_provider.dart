@@ -76,4 +76,25 @@ class ReservationProvider extends StateNotifier<GlobalStates<bool>> {
       }
     }
   }
+
+  Future<void> updateDate(Reservation reservation) async {
+    if (_reservationHolder.editFormKey.currentState!.validate()) {
+      final result = Reservation(
+        unitId: reservation.unitId,
+        id: reservation.id,
+        email: _reservationHolder.email.text,
+        name: _reservationHolder.name.text,
+        dates: _reservationHolder.dates,
+        ownerId: reservation.ownerId,
+        phone: _reservationHolder.phone.text,
+      );
+      try {
+        await _service.updateReservation(result);
+      } on FirebaseException catch (e) {
+        state = GlobalStates.fail(e.message.toString());
+      }
+    }
+  }
+
+
 }

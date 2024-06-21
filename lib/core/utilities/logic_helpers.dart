@@ -33,5 +33,4 @@ class LogicHelpers {
       return seconds / 3153600000;
     }
   }
-
 }

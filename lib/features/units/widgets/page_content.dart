@@ -47,9 +47,7 @@ class _PageContentState extends ConsumerState<_PageContent> {
         SliverAppBar(
           backgroundColor: _appBarBackgroundColor,
           elevation: 0,
-          snap: true,
           pinned: true,
-          floating: true,
           expandedHeight: 30.h * 7,
           centerTitle: true,
           title: const Text('Snow Makers'),

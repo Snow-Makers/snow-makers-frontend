@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:snowmakers/core/components/background.dart';
 import 'package:snowmakers/core/components/drawer.dart';
+import 'package:snowmakers/core/components/widget_life_cycle_listener.dart';
 import 'package:snowmakers/core/utilities/enums.dart';
 import 'package:snowmakers/core/utilities/extensions.dart';
 import 'package:snowmakers/core/utilities/logic_helpers.dart';

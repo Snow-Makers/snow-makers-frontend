@@ -63,7 +63,7 @@ class _EditReservationForm extends ConsumerWidget {
                 ]),
               ),
               20.verticalSpace,
-              const _DateField(),
+              _DateField(reservation),
               40.verticalSpace,
             ],
           ),
@@ -74,7 +74,9 @@ class _EditReservationForm extends ConsumerWidget {
 }
 
 class _DateField extends ConsumerStatefulWidget {
-  const _DateField();
+  final Reservation reservation;
+
+  const _DateField(this.reservation);
 
   @override
   ConsumerState<_DateField> createState() => _DateFieldState();
@@ -140,6 +142,21 @@ class _DateFieldState extends ConsumerState<_DateField> {
                         label: Text(e),
                         onDeleted: () {
                           reservationController.removeDate(e);
+                          ref
+                              .read(ReservationProvider.provider.notifier)
+                              .updateDate(
+                                widget.reservation.copyWith(
+                                  dates: reservationController.dates,
+                                ),
+                              );
+                          ref
+                              .read(ReservationsNotifier.provider.notifier)
+                              .getReservations();
+                          ref
+                              .read(ReservationNotifier.provider(
+                                      widget.reservation.unitId)
+                                  .notifier)
+                              .getReservationForUnit();
                           setState(() {});
                         },
                       ),
