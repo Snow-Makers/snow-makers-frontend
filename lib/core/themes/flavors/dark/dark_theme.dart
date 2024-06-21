@@ -36,11 +36,11 @@ class DarkTheme extends AppThemeFlavor {
         surface: _DarkColors.white,
         onSurface: _DarkColors.white,
       ),
-      switchTheme: SwitchThemeData(
-        thumbColor: MaterialStatePropertyAll<Color>(
+      switchTheme: const SwitchThemeData(
+        thumbColor: WidgetStatePropertyAll<Color>(
           _DarkColors.white,
         ),
-        trackColor: MaterialStatePropertyAll<Color>(
+        trackColor: WidgetStatePropertyAll<Color>(
           _DarkColors.moon,
         ),
 

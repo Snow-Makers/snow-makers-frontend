@@ -1,6 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
+import 'package:snowmakers/core/themes/app_assets.dart';
 import 'package:snowmakers/core/utilities/extensions.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,12 +25,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FadeIn(
-        child: Center(
-          child: Image.asset(
-            context.appTheme.logo,
-          ),
-        ),
+      body: LottieBuilder.asset(
+        AppAssets.snow,
+        fit: BoxFit.cover,
+        width: context.width,
+        height: context.height,
       ),
     );
   }
