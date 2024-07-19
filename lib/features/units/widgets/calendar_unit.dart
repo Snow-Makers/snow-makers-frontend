@@ -74,9 +74,17 @@ class _Calendar extends StatelessWidget {
       startRangeSelectionColor: Colors.transparent,
       endRangeSelectionColor: Colors.transparent,
       initialDisplayDate: DateTime.parse(
-        initialSelectedRanges
-            .map((e) => e.endDate)
-            .reduce((min, max) => min)
+        // display nearest date based on DateTime.now()
+        reservations
+            .map((reservation) => reservation.dates
+                .map((date) => DateTime.parse(date.split(' - ')[0]))
+                .toList())
+            .expand((element) => element)
+            // display nearest date based on DateTime.now()
+            .reduce((value, element) => value.difference(element).abs() >
+                    value.difference(DateTime.now()).abs()
+                ? value
+                : element)
             .toString(),
       ),
       backgroundColor: Colors.transparent,
@@ -92,7 +100,8 @@ class _Calendar extends StatelessWidget {
         details,
       ) {
         return CustomPaint(
-          painter: _MultiRangeSelection(details.date, initialSelectedRanges, colors),
+          painter:
+              _MultiRangeSelection(details.date, initialSelectedRanges, colors),
           size: Size(details.bounds.width, details.bounds.height),
         );
       },
@@ -136,12 +145,14 @@ class _MultiRangeSelection extends CustomPainter {
         canvas.drawCircle(Offset(x, y), radius, Paint()..color = selectedColor);
       } else if (isSameDate(startDate, date)) {
         canvas.drawCircle(Offset(x, y), radius, Paint()..color = selectedColor);
-        canvas.drawRect(Rect.fromLTRB(x, y - radius, size.width, y + radius), paint);
+        canvas.drawRect(
+            Rect.fromLTRB(x, y - radius, size.width, y + radius), paint);
       } else if (isSameDate(endDate, date)) {
         canvas.drawCircle(Offset(x, y), radius, Paint()..color = selectedColor);
         canvas.drawRect(Rect.fromLTRB(0, y - radius, x, y + radius), paint);
       } else if (startDate.isBefore(date) && endDate.isAfter(date)) {
-        canvas.drawRect(Rect.fromLTRB(0, y - radius, size.width, y + radius), paint);
+        canvas.drawRect(
+            Rect.fromLTRB(0, y - radius, size.width, y + radius), paint);
       }
     }
 
