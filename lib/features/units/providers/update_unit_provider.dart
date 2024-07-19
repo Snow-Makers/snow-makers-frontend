@@ -14,12 +14,11 @@ class UpdateUnitProvider extends StateNotifier<GlobalStates<bool>> {
     ),
   );
 
-  UpdateUnitProvider(this._service,this._unitsHolder)
+  UpdateUnitProvider(this._service, this._unitsHolder)
       : super(GlobalStates.initial());
 
   final IUnitsService _service;
   final UnitsHolder _unitsHolder;
-
 
   Future<void> updateUnit(Unit unit) async {
     final result = Unit(
@@ -32,6 +31,9 @@ class UpdateUnitProvider extends StateNotifier<GlobalStates<bool>> {
       humidity: unit.humidity,
       isActive: _unitsHolder.isActive,
       timer: unit.timer,
+      isOccupation: _unitsHolder.isOccupationActive ?? true,
+      duration: _unitsHolder.miliseconds,
+      maxTemperature: _unitsHolder.maxTemperature,
     );
 
     try {

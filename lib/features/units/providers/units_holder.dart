@@ -7,19 +7,43 @@ class UnitsHolder extends ChangeNotifier {
 
   final TextEditingController unitId = TextEditingController();
   final TextEditingController unitPassword = TextEditingController();
+  final TextEditingController duration = TextEditingController();
   String _addressName = '';
   String _locationName = '';
   num _latitude = 0;
   num _longitude = 0;
+  num _maxTemperature = 0.0;
   bool? _isActive;
+  bool? _isOccupation;
+  int _miliseconds = 0;
+
+  num get maxTemperature => _maxTemperature;
 
   bool? get isActive => _isActive;
+
+  bool? get isOccupationActive => _isOccupation;
+
+  int get miliseconds => _miliseconds;
+
+  set miliseconds(int value) {
+    _miliseconds = value;
+    notifyListeners();
+  }
+
+  set maxTemperature(num value) {
+    _maxTemperature = value;
+    notifyListeners();
+  }
 
   set isActive(bool? value) {
     _isActive = value;
     notifyListeners();
   }
 
+  set isOccupationActive(bool? value) {
+    _isOccupation = value;
+    notifyListeners();
+  }
 
   final formKey = GlobalKey<FormState>();
   final editFormKey = GlobalKey<FormState>();
@@ -68,6 +92,8 @@ class UnitsHolder extends ChangeNotifier {
     locationName = '';
     latitude = 0;
     longitude = 0;
+    maxTemperature = 0.0;
+    isOccupationActive = false;
   }
 
   @override
@@ -79,5 +105,7 @@ class UnitsHolder extends ChangeNotifier {
     locationName = '';
     latitude = 0;
     longitude = 0;
+    maxTemperature = 0.0;
+    isOccupationActive = false;
   }
 }

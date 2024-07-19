@@ -43,7 +43,6 @@ class DarkTheme extends AppThemeFlavor {
         trackColor: WidgetStatePropertyAll<Color>(
           _DarkColors.moon,
         ),
-
       ),
       scaffoldBackgroundColor: _DarkColors.buttonDark,
       textTheme: textTheme,
@@ -90,6 +89,16 @@ class DarkTheme extends AppThemeFlavor {
             const WidgetStatePropertyAll<Color>(_DarkColors.white),
         rangePickerHeaderForegroundColor: _DarkColors.white,
         rangeSelectionBackgroundColor: Colors.blueAccent.withOpacity(.5),
+      ),
+      timePickerTheme: const TimePickerThemeData(
+        backgroundColor: _DarkColors.buttonDark,
+        dayPeriodColor: _DarkColors.buttonDark,
+        hourMinuteColor: _DarkColors.buttonDark,
+        dayPeriodTextColor: _DarkColors.white,
+        hourMinuteTextColor: _DarkColors.white,
+        entryModeIconColor: _DarkColors.white,
+        dialBackgroundColor: _DarkColors.secondaryDarkColor,
+        dialTextColor: _DarkColors.white,
       ),
       chipTheme: ChipThemeData(
         backgroundColor: Colors.blueAccent,

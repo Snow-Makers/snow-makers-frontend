@@ -87,9 +87,13 @@ class _PageContentState extends ConsumerState<_PageContent> {
               30.verticalSpace,
               _UnitInformation(widget.unit),
               30.verticalSpace,
-              _TimerUnit(seconds: widget.unit.timer,),
+              _TimerUnit(
+                seconds: widget.unit.timer,
+              ),
               30.verticalSpace,
               _UnitFunctions(unit: widget.unit),
+              30.verticalSpace,
+              _AdvancedSettings(unit: widget.unit),
               30.verticalSpace,
               _CalendarUnit(
                 unitId: widget.unit.modelId,

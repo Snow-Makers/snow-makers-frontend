@@ -7,6 +7,9 @@ class Unit {
   final Location location;
   final Reservation? reservation;
   final String userId;
+  final num maxTemperature;
+  final bool isOccupation;
+  final int duration;
   final num? temperature;
   final int unitFunction;
   final int timer;
@@ -19,10 +22,13 @@ class Unit {
     required this.location,
     required this.userId,
     this.reservation,
-    this.isActive,
+    this.isActive = false,
     this.temperature,
     this.unitFunction = -1,
     this.timer = 0,
+    this.maxTemperature = 0.0,
+    this.isOccupation = true,
+    this.duration = 0,
     this.humidity,
   });
 
@@ -37,6 +43,9 @@ class Unit {
     num? humidity,
     bool? isActive,
     int? timer,
+    bool? isOccupation,
+    int? duration,
+    double? maxTemperature,
   }) {
     return Unit(
       modelId: modelId ?? this.modelId,
@@ -49,6 +58,9 @@ class Unit {
       humidity: humidity ?? this.humidity,
       isActive: isActive ?? this.isActive,
       timer: timer ?? this.timer,
+      isOccupation: isOccupation ?? this.isOccupation,
+      duration: duration ?? this.duration,
+      maxTemperature: maxTemperature ?? this.maxTemperature,
     );
   }
 
@@ -66,6 +78,9 @@ class Unit {
       reservation: json['reservation'] != null
           ? Reservation.fromJson(json['reservation'])
           : null,
+      maxTemperature: json['maxTemperature'] ?? 0.0,
+      isOccupation: json['isOccupation'] ?? true,
+      duration: json['duration'] ?? 0,
     );
   }
 
@@ -78,7 +93,10 @@ class Unit {
     data['temperature'] = temperature;
     data['humidity'] = humidity;
     data['timer'] = timer;
-    if(isActive != null){
+    data['maxTemperature'] = maxTemperature;
+    data['isOccupation'] = isOccupation;
+    data['duration'] = duration;
+    if (isActive != null) {
       data['isActive'] = isActive;
     }
     data['location'] = location.toJson();

@@ -56,6 +56,7 @@ class UnitsService extends IUnitsService {
         .collection('units')
         .doc(unit.modelId)
         .update(unit.toJson());
+    print(unit.toJson());
   }
 
   @override
@@ -89,5 +90,4 @@ class UnitsService extends IUnitsService {
       return false;
     }
   }
-
 }
