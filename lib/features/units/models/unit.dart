@@ -14,7 +14,8 @@ class Unit {
   final int unitFunction;
   final int timer;
   final num? humidity;
-  final bool? isActive;
+  bool? isActive;
+  final bool isSwing;
 
   Unit({
     required this.modelId,
@@ -30,6 +31,7 @@ class Unit {
     this.isOccupation = true,
     this.duration = 0,
     this.humidity,
+    this.isSwing = false,
   });
 
   Unit copyWith({
@@ -46,6 +48,7 @@ class Unit {
     bool? isOccupation,
     int? duration,
     double? maxTemperature,
+    bool? isSwing,
   }) {
     return Unit(
       modelId: modelId ?? this.modelId,
@@ -59,6 +62,7 @@ class Unit {
       isActive: isActive ?? this.isActive,
       timer: timer ?? this.timer,
       isOccupation: isOccupation ?? this.isOccupation,
+      isSwing: isSwing ?? this.isSwing,
       duration: duration ?? this.duration,
       maxTemperature: maxTemperature ?? this.maxTemperature,
     );
@@ -74,6 +78,7 @@ class Unit {
       humidity: json['humidity'],
       timer: json['timer'] ?? 0,
       isActive: json['isActive'] ?? false,
+      isSwing: json['isSwing'] ?? false,
       location: Location.fromJson(json['location']),
       reservation: json['reservation'] != null
           ? Reservation.fromJson(json['reservation'])
@@ -96,6 +101,7 @@ class Unit {
     data['maxTemperature'] = maxTemperature;
     data['isOccupation'] = isOccupation;
     data['duration'] = duration;
+    data['isSwing'] = isSwing;
     if (isActive != null) {
       data['isActive'] = isActive;
     }

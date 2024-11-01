@@ -15,15 +15,23 @@ class UnitsHolder extends ChangeNotifier {
   num _maxTemperature = 0.0;
   bool? _isActive;
   bool? _isOccupation;
+  bool? _isSwing;
   int _miliseconds = 0;
 
   num get maxTemperature => _maxTemperature;
 
   bool? get isActive => _isActive;
 
+  bool? get isSwing => _isSwing;
+
   bool? get isOccupationActive => _isOccupation;
 
   int get miliseconds => _miliseconds;
+
+  set isSwing(bool? value) {
+    _isSwing = value;
+    notifyListeners();
+  }
 
   set miliseconds(int value) {
     _miliseconds = value;

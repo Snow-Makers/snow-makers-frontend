@@ -14,6 +14,8 @@ abstract class IUnitsService {
 
   Future<Unit> getUnit(String id);
 
+  Stream<Unit> getUnitStream(String id);
+
   Future<bool> addUnit(Unit unit);
 
   Future<void> updateUnit(Unit unit);

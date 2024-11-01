@@ -41,7 +41,7 @@ class _MyAppState extends ConsumerState<MyApp> {
                   overlayColor: Colors.black54,
                   child: MaterialApp.router(
                     onGenerateTitle: (context) {
-                      return LocaleKeys.appName.tr();
+                      return 'SnowBnB';
                     },
                     debugShowCheckedModeBanner: false,
                     localizationsDelegates: context.localizationDelegates,

@@ -7,6 +7,9 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fahrenheit =
+        LogicHelpers.convertDegreeFromCelsiusToFahrenheit(unit.temperature)
+            ?.toStringAsFixed(2);
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
@@ -20,7 +23,7 @@ class _Header extends StatelessWidget {
             ),
             if (unit.temperature != null)
               Text(
-                '${unit.temperature!.toStringAsFixed(2)}° C',
+                '$fahrenheit° F',
                 style: context.appTextStyles.displayLarge.copyWith(
                   fontSize: 30.sp,
                   height: 0,
@@ -36,15 +39,15 @@ class _Header extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (unit.temperature != null)
-                  Text(
-                    'F: ${LogicHelpers.convertDegreeFromCelsiusToFahrenheit(unit.temperature!).toStringAsFixed(2)}°',
-                    style: context.appTextStyles.titleMedium,
-                  ),
-                20.horizontalSpace,
                 if (unit.humidity != null)
                   Text(
                     'H: ${unit.humidity}%',
+                    style: context.appTextStyles.titleMedium,
+                  ),
+                20.horizontalSpace,
+                if (unit.humidity != null && unit.temperature != null)
+                  Text(
+                    '${LocaleKeys.units_wetBulbTemp.tr()}: ${LogicHelpers.calculateWetbulbTemperature(num.parse(fahrenheit ?? ''), unit.humidity!).toStringAsFixed(2)}°',
                     style: context.appTextStyles.titleMedium,
                   ),
               ],
@@ -70,16 +73,16 @@ class _Options extends ConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-            TextButton(
-              onPressed: () {
-                context.pop();
-                context.push('/addReservation', extra: unit.modelId);
-              },
-              child: const Text('Add Reservation'),
-            ),
-            Divider(
-              color: context.appTheme.white.withOpacity(0.2),
-            ),
+          TextButton(
+            onPressed: () {
+              context.pop();
+              context.push('/addReservation', extra: unit.modelId);
+            },
+            child: const Text('Add Reservation'),
+          ),
+          Divider(
+            color: context.appTheme.white.withOpacity(0.2),
+          ),
           TextButton(
             onPressed: () {
               UiAlerts.logoutDialog(

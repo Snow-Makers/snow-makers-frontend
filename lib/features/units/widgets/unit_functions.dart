@@ -47,6 +47,8 @@ class _FunctionsState extends ConsumerState<_Functions> {
       if (mounted) {
         ref.read(UnitsHolder.provider.notifier).functions =
             UnitFunctions.fromValue(widget.unit.unitFunction);
+        ref.read(UnitsHolder.provider.notifier).isSwing = widget.unit.isSwing;
+
       }
     });
   }
@@ -101,6 +103,23 @@ class _FunctionsState extends ConsumerState<_Functions> {
               _updateUnit(widget.unit);
             }
           },
+        ),
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          child: unitHolderState.functions != UnitFunctions.none
+              ? SwitchListTile(
+                  title: Text(LocaleKeys.units_swingController.tr()),
+                  value: unitHolderState.isSwing ?? false,
+                  activeColor: Colors.white,
+                  activeTrackColor: Colors.blueAccent,
+                  onChanged: (bool isOn) {
+                    if (widget.unit.isActive != null && widget.unit.isActive!) {
+                      unitHolder.isSwing = isOn;
+                      _updateUnit(widget.unit);
+                    }
+                  },
+                )
+              : const SizedBox.shrink(),
         ),
         20.verticalSpace,
         if (widget.unit.isActive != null && !widget.unit.isActive!)

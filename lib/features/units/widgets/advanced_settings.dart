@@ -90,22 +90,18 @@ class _SettingsState extends ConsumerState<_Settings> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: TextInputField(
-            label: 'Max. Temperature (°C)',
+            label: 'Max. Temperature (°F)',
             initialValue: widget.unit.maxTemperature.toString(),
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
             ],
             inputType: TextInputType.number,
             onChanged: (value) {
-              unitHolder.maxTemperature = double.parse(value);
+              unitHolder.maxTemperature =
+                  LogicHelpers.convertDegreeFromFahrenheitToCelsius(
+                num.parse(value),
+              );
             },
-          ),
-        ),
-        10.verticalSpace,
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: _FunctionsSelector(
-            unit: widget.unit,
           ),
         ),
         20.verticalSpace,

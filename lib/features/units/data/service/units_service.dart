@@ -90,4 +90,11 @@ class UnitsService extends IUnitsService {
       return false;
     }
   }
+
+  @override
+  Stream<Unit> getUnitStream(String id) {
+    final querySnapshot = _fireStore.collection('units').doc(id).snapshots();
+    return querySnapshot.map(
+        (snapshot) => Unit.fromJson(snapshot.data() as Map<String, dynamic>));
+  }
 }

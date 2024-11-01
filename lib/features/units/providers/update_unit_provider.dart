@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:snowmakers/core/notifiers/global_state.dart';
+import 'package:snowmakers/core/utilities/enums.dart';
 import 'package:snowmakers/features/units/data/interface/i_units_service.dart';
 import 'package:snowmakers/features/units/models/unit.dart';
 import 'package:snowmakers/features/units/providers/units_holder.dart';
@@ -34,6 +35,9 @@ class UpdateUnitProvider extends StateNotifier<GlobalStates<bool>> {
       isOccupation: _unitsHolder.isOccupationActive ?? true,
       duration: _unitsHolder.miliseconds,
       maxTemperature: _unitsHolder.maxTemperature,
+      isSwing: _unitsHolder.functions != UnitFunctions.none
+          ? _unitsHolder.isSwing ?? false
+          : false,
     );
 
     try {

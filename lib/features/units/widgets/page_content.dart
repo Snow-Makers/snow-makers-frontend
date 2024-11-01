@@ -12,17 +12,45 @@ class _PageContent extends ConsumerStatefulWidget {
 class _PageContentState extends ConsumerState<_PageContent> {
   late ScrollController _scrollController;
   Color _appBarBackgroundColor = Colors.transparent;
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
+    _timer = Timer.periodic(const Duration(seconds: 6), (timer) async {
+      if (widget.unit.isActive == true) {
+        await checkAndUpdateIsActive();
+      }
+    });
+  }
+
+  Future<void> checkAndUpdateIsActive() async {
+    final unitDoc =
+        FirebaseFirestore.instance.collection('units').doc(widget.unit.modelId);
+    final snapshot = await unitDoc.get();
+
+    if (snapshot.exists) {
+      final data = snapshot.data()!;
+      final isActive = data['isActive'] as bool?;
+      final updatedAtMillis = data['updatedAt'] as int?;
+
+      if (isActive != null && isActive && updatedAtMillis != null) {
+        final updatedAt = DateTime.fromMillisecondsSinceEpoch(updatedAtMillis);
+        final timeSinceLastUpdate = DateTime.now().difference(updatedAt);
+
+        if (timeSinceLastUpdate > const Duration(seconds: 5)) {
+          await unitDoc.update({'isActive': false});
+        }
+      }
+    }
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
+    _timer?.cancel();
     super.dispose();
   }
 
