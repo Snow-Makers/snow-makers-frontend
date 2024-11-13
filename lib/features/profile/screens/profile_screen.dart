@@ -78,7 +78,7 @@ class ProfileScreen extends ConsumerWidget {
                       TextInputField(
                         controller: editProfileDataHolder.nameController,
                         label: LocaleKeys.addReservation_name.tr(),
-                        hint: 'Snow Makers',
+                        hint: 'SnowBnB',
                         validator: (value) =>
                             value!.validate([validateRequired,validateName]),
                       ),

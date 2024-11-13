@@ -28,7 +28,7 @@ class _RegisterForm extends ConsumerWidget {
             20.verticalSpace,
             TextInputField(
               label: LocaleKeys.signup_name.tr(),
-              hint: 'Snow Makers',
+              hint: 'SnowBnB',
               controller: registerHolder.name,
               inputType: TextInputType.name,
               validator: (value) =>

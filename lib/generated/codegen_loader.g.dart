@@ -15,7 +15,7 @@ class CodegenLoader extends AssetLoader{
   }
 
   static const Map<String,dynamic> en = {
-  "appName": "SnowMakers",
+  "appName": "SnowBnB",
   "languageSelection": {
     "title": "Choose the language you\nprefer",
     "arabic": "العربية",
@@ -139,7 +139,7 @@ class CodegenLoader extends AssetLoader{
   }
 };
 static const Map<String,dynamic> ar = {
-  "appName": "SnowMakers",
+  "appName": "SnowBnB",
   "languageSelection": {
     "title": "أختر اللغة التي تفضلها",
     "arabic": "العربية",

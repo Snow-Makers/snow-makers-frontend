@@ -78,7 +78,7 @@ class _PageContentState extends ConsumerState<_PageContent> {
           pinned: true,
           expandedHeight: 30.h * 7,
           centerTitle: true,
-          title: const Text('Snow Makers'),
+          title: const Text('SnowBnB'),
           leading: IconButton(
             onPressed: () {
               Scaffold.of(context).openDrawer();

@@ -34,7 +34,7 @@ class _EditReservationForm extends ConsumerWidget {
               TextInputField(
                 controller: reservationController.name,
                 label: LocaleKeys.addReservation_name.tr(),
-                hint: 'Snow Makers',
+                hint: 'SnowBnB',
                 inputType: TextInputType.name,
                 validator: (value) => value!.validate([
                   validateRequired,
